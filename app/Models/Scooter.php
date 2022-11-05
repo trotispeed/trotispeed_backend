@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Scooter extends Model
 {
     use HasFactory;
+
+    protected $appends = ['stock'];
+
+    public function getStockAttribute(){
+        return true;
+    }
 }
