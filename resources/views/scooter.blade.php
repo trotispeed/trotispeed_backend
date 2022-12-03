@@ -9,10 +9,21 @@
         @include('nav-admin')
         <div class="page-content">
 
+
+            @if (session('message'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
+
+            @include('scooter.add')
+
+
             <div class="d-flex flex-row-reverse">
-                <button type="button" class="btn btn-success" style="margin: 0 2rem 1rem 0">
+                <button type="button" class="btn btn-success" style="margin: 0 2rem 1rem 0" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
                     Add new Scooter
-                    <i style="width: 0.8rem" data-feather="plus" ></i>
+                    <i style="width: 0.8rem" data-feather="plus"></i>
                 </button>
             </div>
             <div class="row">
@@ -33,14 +44,15 @@
                                         <th>model</th>
                                         <th>base price</th>
                                         <th>stock</th>
-                                        <th>Actions</th>
+                                        <th colspan="2">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($scooters as $scooter)
                                         <tr>
                                             <th>{{$scooter->id}} </th>
-                                            <td> <img class="wd-40 ht-30" src="{{asset($scooter->pic)}}" alt=""> {{$scooter->model}}</td>
+                                            <td><img class="wd-40 ht-30" src="{{asset($scooter->pic)}}"
+                                                     alt=""> {{$scooter->model}}</td>
                                             <td>{{$scooter->base_price}} MAD</td>
                                             <td>
                                                 @if($scooter->stock)
@@ -51,9 +63,22 @@
                                                 @endif
 
                                             </td>
+
                                             <td>
-                                                <button type="button" class="btn btn-primary">Edit</button>
-                                                <button type="button" class="btn btn-danger"> <i style="width: 0.8rem;" data-feather="trash-2"></i></button>
+                                                <a type="button" href="{{route("edit_scooter" , $scooter->id)}}"
+                                                   class="btn btn-primary">Edit</a>
+                                            </td>
+
+                                            <td>
+
+
+                                                <form action="{{route('delete_scooter' , $scooter->id)}}" method="post">
+                                                    @csrf
+                                                    <input type="number" name="id" value="{{$scooter->id}}" hidden>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i style="width: 0.8rem;" data-feather="trash-2"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

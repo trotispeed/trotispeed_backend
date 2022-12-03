@@ -19,14 +19,18 @@ Route::get('/', function () {
 });
 
 
-Route::post('/dashboard-login' , [DashboardController::class, 'post_login']);
-Route::prefix('/dashboard')->group(function (){
+Route::post('/dashboard-login', [DashboardController::class, 'post_login']);
+Route::prefix('/dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
-    Route::get('/reservations/report' , [DashboardController::class, 'reservations']);
-    Route::get('/reservations/queued' , [DashboardController::class, 'queued']);
-    Route::get('/users' , [DashboardController::class, 'users']);
-    Route::get('/roles' , [DashboardController::class, 'roles']);
-    Route::get('/scooter' , [DashboardController::class, 'scooter']);
+    Route::get('/reservations/report', [DashboardController::class, 'reservations']);
+    Route::get('/reservations/queued', [DashboardController::class, 'queued']);
+    Route::get('/users', [DashboardController::class, 'users']);
+    Route::get('/roles', [DashboardController::class, 'roles']);
+    Route::get('/scooter', [DashboardController::class, 'scooter'])->name('scooter_list');
+    Route::post('/scooter', [DashboardController::class, 'add_scooter'])->name("add_scooter");
+    Route::post('/scooter/update', [DashboardController::class, 'update_scooter'])->name("update_scooter");
+    Route::post('/scooter/{id}/delete', [DashboardController::class, 'delete_scooter'])->name("delete_scooter");
+    Route::get('/scooter/{id}/edit', [DashboardController::class, 'edit_scooter'])->name("edit_scooter");
 });
 
 Route::get('/toriti-speed-login', [DashboardController::class, 'login']);

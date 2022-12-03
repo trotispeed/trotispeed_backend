@@ -11,7 +11,19 @@ class Scooter extends Model
 
     protected $appends = ['stock'];
 
-    public function getStockAttribute(){
+    protected $fillable = [
+        "model",
+        "battery",
+        "max_weight",
+        "weight",
+        "max_speed",
+        "range",
+        "base_price",
+        "pic",
+    ];
+
+    public function getStockAttribute()
+    {
         return true;
     }
 }
