@@ -11,7 +11,14 @@ class ModelBrandController extends Controller
     public function all()
     {
         return ModelBrand::query()->select('id', 'name', 'image')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'image' => asset($item->image)
+                ];
+            });
     }
 
     /**
