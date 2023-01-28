@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 
 class ScooterController extends Controller
 {
+
+    public function all()
+    {
+        return Scooter::query()->select('id', 'model', 'pic')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->model,
+                    'image' => $item->pic
+                ];
+            });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +44,7 @@ class ScooterController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +55,7 @@ class ScooterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Scooter  $scooter
+     * @param \App\Models\Scooter $scooter
      * @return \Illuminate\Http\Response
      */
     public function show(Scooter $scooter)
@@ -52,7 +66,7 @@ class ScooterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Scooter  $scooter
+     * @param \App\Models\Scooter $scooter
      * @return \Illuminate\Http\Response
      */
     public function edit(Scooter $scooter)
@@ -63,8 +77,8 @@ class ScooterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Scooter  $scooter
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Scooter $scooter
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Scooter $scooter)
@@ -75,7 +89,7 @@ class ScooterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Scooter  $scooter
+     * @param \App\Models\Scooter $scooter
      * @return \Illuminate\Http\Response
      */
     public function destroy(Scooter $scooter)
