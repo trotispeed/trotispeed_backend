@@ -16,7 +16,7 @@ class ScooterController extends Controller
                 return [
                     'id' => $item->id,
                     'title' => $item->model,
-                    'image' => $item->pic
+                    'image' => asset($item->pic)
                 ];
             });
     }
