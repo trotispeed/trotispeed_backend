@@ -10,7 +10,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="recipient-name" class="form-label">Model:</label>
-                        <input type="text" class="form-control" name="model" required>
+                        <select name="model" class="form-control" required>
+                            @foreach($models as $model)
+                                <option value="{{$model->id}}">{{$model->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="message-text" class="form-label">Battery:</label>

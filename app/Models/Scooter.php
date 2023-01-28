@@ -20,6 +20,9 @@ class Scooter extends Model
         "range",
         "base_price",
         "pic",
+        "model_image",
+        "brand_id"
+
     ];
 
     public function getStockAttribute()

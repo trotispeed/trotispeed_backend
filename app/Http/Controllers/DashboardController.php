@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ModelBrand;
 use App\Models\Role;
 use App\Models\Scooter;
 use App\Models\User;
@@ -51,14 +52,16 @@ class DashboardController extends Controller
         $scooters = Scooter::query()
             ->select('id', 'model', 'pic', 'base_price')
             ->get();
+        $models = ModelBrand::query()->select('id', 'name')
+            ->get();
 
-        return view('scooter', compact('scooters'));
+        return view('scooter', compact('scooters', 'models'));
     }
 
     public function add_scooter(Request $request)
     {
         $validate = $request->validate([
-            'model' => 'string|required',
+            'model' => 'integer|required',
             'battery' => 'integer',
             'max_wieght' => 'integer',
             'w' => 'integer',
@@ -73,8 +76,13 @@ class DashboardController extends Controller
             $new_file_name = '' . time() . '.' . $file_extension;
             $file->move(public_path('/scooter_images'), $new_file_name);
 
+            $model = ModelBrand::query()->where('id', '=', $request->model)
+                ->first();
+
             Scooter::query()->create([
-                "model" => $request->model,
+                "model" => $model->name,
+                "model_image" => $model->image,
+                "brand_id" => $model->id,
                 "battery" => $request->battery,
                 "max_weight" => $request->max_wieght,
                 "weight" => $request->w,
@@ -109,25 +117,27 @@ class DashboardController extends Controller
 
     public function update_scooter(Request $request)
     {
+
         $validate = $request->validate([
-            'id' => 'integer|required',
-            'model' => 'string|required',
+            'id' => 'required',
             'battery' => 'integer',
-            'max_wieght' => 'integer',
             "max_speed" => "integer",
             "range" => "integer",
             "base_price" => "integer|required"
         ]);
 
         if ($validate) {
+            $file = $request->file()['picture'];
+            $file_extension = $file->getClientOriginalExtension();
+            $new_file_name = '' . time() . '.' . $file_extension;
+            $file->move(public_path('/scooter_images'), $new_file_name);
+
             Scooter::query()->where('id', $request->id)->update([
-                "model" => $request->model,
                 "battery" => $request->battery,
-                "max_weight" => $request->max_wieght,
-                "weight" => $request->w,
                 "max_speed" => $request->max_speed,
                 "range" => $request->range,
                 "base_price" => $request->base_price,
+                "pic" => '/scooter_images/' . $new_file_name
             ]);
             Session::flash('message', "Scooter has been Updated");
             return redirect(route('scooter_list'));
