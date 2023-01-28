@@ -15,7 +15,7 @@ class ModelBrandController extends Controller
             ->map(function ($item) {
                 return [
                     'id' => $item->id,
-                    'name' => $item->name,
+                    'title' => $item->name,
                     'image' => asset($item->image)
                 ];
             });
