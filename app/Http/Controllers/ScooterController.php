@@ -21,6 +21,22 @@ class ScooterController extends Controller
             });
     }
 
+    public function find_by_brand($id)
+    {
+        $scooters = Scooter::where('brand_id', '=', $id)
+            ->get();
+        return response()->json(
+            ['data' => $scooters]
+        );
+    }
+
+    public function scooter_info($id)
+    {
+        $scooter = Scooter::where('id', '=', $id)
+            ->first();
+        return response()->json($scooter);
+    }
+
     /**
      * Display a listing of the resource.
      *
