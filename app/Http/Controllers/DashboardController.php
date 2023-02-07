@@ -81,7 +81,7 @@ class DashboardController extends Controller
 
             Scooter::query()->create([
                 "model" => $model->name,
-                "model_image" => $model->image,
+//                "model_image" => $model->image,
                 "brand_id" => $model->id,
                 "battery" => $request->battery,
                 "max_weight" => $request->max_wieght,
