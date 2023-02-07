@@ -25,6 +25,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/brands', [\App\Http\Controllers\ModelBrandController::class, 'all']);
 Route::get('/scooters', [\App\Http\Controllers\ScooterController::class, 'all']);
-Route::get('/scooters/{brand_id}', [\App\Http\Controllers\ScooterController::class, 'find_by_brand']);
+Route::get('/scooters/category/{brand_id}', [\App\Http\Controllers\ScooterController::class, 'find_by_brand']);
 Route::get('/scooter/{id}', [\App\Http\Controllers\ScooterController::class, 'scooter_info']);
 

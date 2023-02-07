@@ -24,7 +24,22 @@ class ScooterController extends Controller
     public function find_by_brand($id)
     {
         $scooters = Scooter::where('brand_id', '=', $id)
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'model' => $item->model,
+                    'battery' => $item->battery,
+                    'max_weight' => $item->max_weight,
+                    'weight' => $item->weight,
+                    'max_speed' => $item->max_speed,
+                    'range' => $item->range,
+                    'base_price' => $item->base_price,
+                    'pic' => asset($item->pic),
+                    'brand_id' => $item->brand_id,
+                    'stock' => $item->stock
+                ];
+            });
         return response()->json(
             ['data' => $scooters]
         );
