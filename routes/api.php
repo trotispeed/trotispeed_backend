@@ -27,4 +27,5 @@ Route::get('/brands', [\App\Http\Controllers\ModelBrandController::class, 'all']
 Route::get('/scooters', [\App\Http\Controllers\ScooterController::class, 'all']);
 Route::get('/scooters/category/{brand_id}', [\App\Http\Controllers\ScooterController::class, 'find_by_brand']);
 Route::get('/scooter/{id}', [\App\Http\Controllers\ScooterController::class, 'scooter_info']);
+Route::post('/validation', [\App\Http\Controllers\ReservationController::class, 'validate_reservation']);
 

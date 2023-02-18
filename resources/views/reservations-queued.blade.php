@@ -18,36 +18,31 @@
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>Date</th>
                                         <th>Scooter</th>
                                         <th>Client</th>
+                                        <th>CIN</th>
+                                        <th>Tel</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Cedric Kelly</td>
-                                        <td>Adnane bensouda</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary">Confirm <i data-feather="book-open" style="width: 0.9rem"  ></i> </button>
-                                            <button type="button" class="btn btn-warning">Cancel <i data-feather="x-circle" style="width: 0.9rem" ></i> </button>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Cedric Kelly</td>
-                                        <td>Adnane bensouda</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary">Confirm <i data-feather="book-open" style="width: 0.9rem"  ></i> </button>
-                                            <button type="button" class="btn btn-warning">Cancel <i data-feather="x-circle" style="width: 0.9rem" ></i> </button>
-
-                                        </td>
-                                    </tr>
+                                    @foreach($reservations as $reservation)
+                                        <tr>
+                                            <td>{{$reservation['allocation_date']}}</td>
+                                            <td>{{$reservation['scooter']->model}}</td>
+                                            <td>{{$reservation['user']->name}}</td>
+                                            <td>{{$reservation['cin']}}</td>
+                                            <td>{{$reservation['user_tel']}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary">Confirm <i
+                                                        data-feather="book-open" style="width: 0.9rem"></i></button>
+                                                <button type="button" class="btn btn-warning">Cancel <i
+                                                        data-feather="x-circle" style="width: 0.9rem"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
 
                                     </tbody>

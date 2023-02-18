@@ -17,11 +17,11 @@ return new class extends Migration {
             $table->date('allocation_date');
             $table->unsignedBigInteger('scooter_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('duration');
+            $table->integer('duration')->nullable();
             $table->boolean('confirmed')->default(0);
-            $table->string('cin_front' , 254);
-            $table->string('cin_back' , 254);
-            $table->string('user_tel' , 255);
+            $table->string('cin_front', 254)->nullable();
+            $table->string('cin_back', 254)->nullable();
+            $table->string('user_tel', 255);
 
             $table->timestamps();
         });

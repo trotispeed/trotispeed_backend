@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -15,6 +17,31 @@ class ReservationController extends Controller
     public function index()
     {
         //
+    }
+
+    public function validate_reservation(Request $request)
+    {
+        $user = User::query()->where('name', 'like', $request->user_name)
+            ->select('id')
+            ->first();
+        if (!isset($user)) {
+            return response()->json(
+                ["message" => "User Doesnt Exists"], 400
+            );
+        } else {
+            $user->email = $request->email;
+            $user->save();
+            $reservarion = Reservation::create([
+                "allocation_date" => Carbon::now(),
+                "scooter_id" => $request->scooter_id,
+                "cin" => $request->cin,
+                "scooter_id" => $request->scooter_id,
+                "user_id" => $user->id,
+                "user_tel" => $request->number
+            ]);
+            return $reservarion;
+        }
+
     }
 
     /**
@@ -30,7 +57,7 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +68,7 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Reservation  $reservation
+     * @param \App\Models\Reservation $reservation
      * @return \Illuminate\Http\Response
      */
     public function show(Reservation $reservation)
@@ -52,7 +79,7 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Reservation  $reservation
+     * @param \App\Models\Reservation $reservation
      * @return \Illuminate\Http\Response
      */
     public function edit(Reservation $reservation)
@@ -63,8 +90,8 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reservation  $reservation
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Reservation $reservation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Reservation $reservation)
@@ -75,7 +102,7 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Reservation  $reservation
+     * @param \App\Models\Reservation $reservation
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reservation $reservation)

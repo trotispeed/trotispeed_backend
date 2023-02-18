@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelBrand;
+use App\Models\Reservation;
 use App\Models\Role;
 use App\Models\Scooter;
 use App\Models\User;
@@ -28,7 +29,24 @@ class DashboardController extends Controller
 
     public function queued()
     {
-        return view('reservations-queued');
+        $reservations = Reservation::query()->where('confirmed', '=', 0)
+            ->select('id', 'allocation_date', 'scooter_id', 'user_id', 'user_tel', 'cin')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'allocation_date' => $item->allocation_date,
+                    'scooter' => Scooter::query()->where('id', '=', $item->scooter_id)
+                        ->select('model')
+                        ->first(),
+                    'user' => User::query()->where('id', '=', $item->user_id)
+                        ->select('name')
+                        ->first(),
+                    'user_tel' => $item->user_tel,
+                    "cin" => $item->cin
+                ];
+            });
+        return view('reservations-queued', compact('reservations'));
     }
 
     public function users()
