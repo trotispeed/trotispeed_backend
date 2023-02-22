@@ -8,6 +8,25 @@ use Illuminate\Http\Request;
 class ScooterController extends Controller
 {
 
+    public function search_by_name(Request $request)
+    {
+        $scooters = Scooter::query()->where('model', 'like', '%' . $request->model . '%')
+            ->select('id', 'model', 'pic')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    "id" => $item->id,
+                    "model" => $item->model,
+                    "pic" => asset($item->pic),
+                    "stock" => $item->stock
+                ];
+            });
+        return response()->json(
+            $scooters, 200
+        );
+    }
+
+
     public function all()
     {
         return Scooter::query()->select('id', 'model', 'pic')

@@ -27,6 +27,36 @@ class DashboardController extends Controller
         return view('reservations');
     }
 
+    public function uploadcin($id)
+    {
+        return view('uploadcin', compact('id'));
+    }
+
+    public function post_cin(Request $request)
+    {
+        $file = $request->file()['picture'];
+        $file_extension = $file->getClientOriginalExtension();
+        $cin_f = '' . time() . '.' . $file_extension;
+        $file->move(public_path('/cin'), $cin_f);
+
+
+        $file = $request->file()['cin_back'];
+        $file_extension = $file->getClientOriginalExtension();
+        $cin_b = '' . time() . '.' . $file_extension;
+        $file->move(public_path('/cin'), $cin_b);
+
+
+        $reservation = Reservation::query()->where('id', '=', $request->id)
+            ->first();
+
+        $reservation->cin_front = $cin_f;
+        $reservation->cin_back = $cin_b;
+        $reservation->save();
+        return 'User ID = ' . $request->id . 'Confirmed his CIN';
+
+    }
+
+
     public function queued()
     {
         $reservations = Reservation::query()->where('confirmed', '=', 0)

@@ -24,6 +24,8 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/reservations/report', [DashboardController::class, 'reservations']);
     Route::get('/reservations/queued', [DashboardController::class, 'queued']);
+    Route::get('/reservations/uploadcin/{id}', [DashboardController::class, 'uploadcin'])->name('uploadcin');
+    Route::post('/reservations/uploadcin', [DashboardController::class, 'post_cin'])->name('post_cin');
     Route::get('/users', [DashboardController::class, 'users']);
     Route::get('/roles', [DashboardController::class, 'roles']);
     Route::get('/scooter', [DashboardController::class, 'scooter'])->name('scooter_list');

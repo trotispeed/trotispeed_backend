@@ -22,7 +22,8 @@ class AuthController extends Controller
         $credentials = $request->only('name', 'password');
         $data = [];
         if (Auth::attempt($credentials)) {
-            $data['message'] = "Success This Change saved tt0363143";
+            $data['message'] = "login success";
+            $data['user'] = $user;
             return response()->json($data, 200);
         } else {
             return response()->json($data, 400);

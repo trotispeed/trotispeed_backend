@@ -38,6 +38,8 @@
                                             <td>
                                                 <button type="button" class="btn btn-primary">Confirm <i
                                                         data-feather="book-open" style="width: 0.9rem"></i></button>
+                                                <a href="{{route('uploadcin' , $reservation['id'])}}" type="button"
+                                                   class="btn btn-secondary">Upload CIN</a>
                                                 <button type="button" class="btn btn-warning">Cancel <i
                                                         data-feather="x-circle" style="width: 0.9rem"></i></button>
                                             </td>
