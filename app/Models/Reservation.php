@@ -15,7 +15,9 @@ class Reservation extends Model
         "cin",
         "scooter_id",
         "user_id",
-        "user_tel"
+        "user_tel",
+        "cin_back",
+        "cin_front"
     ];
 
 }

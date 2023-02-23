@@ -23,7 +23,7 @@ Route::post('/dashboard-login', [DashboardController::class, 'post_login']);
 Route::prefix('/dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/reservations/report', [DashboardController::class, 'reservations']);
-    Route::get('/reservations/queued', [DashboardController::class, 'queued']);
+    Route::get('/reservations/queued', [DashboardController::class, 'queued'])->name('queued');
     Route::get('/reservations/uploadcin/{id}', [DashboardController::class, 'uploadcin'])->name('uploadcin');
     Route::post('/reservations/uploadcin', [DashboardController::class, 'post_cin'])->name('post_cin');
     Route::get('/users', [DashboardController::class, 'users']);

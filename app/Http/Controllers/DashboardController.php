@@ -48,11 +48,11 @@ class DashboardController extends Controller
 
         $reservation = Reservation::query()->where('id', '=', $request->id)
             ->first();
-
+        $reservation->duration = $request->duration;
         $reservation->cin_front = $cin_f;
         $reservation->cin_back = $cin_b;
         $reservation->save();
-        return 'User ID = ' . $request->id . 'Confirmed his CIN';
+        return redirect(route('queued'));
 
     }
 
@@ -60,7 +60,7 @@ class DashboardController extends Controller
     public function queued()
     {
         $reservations = Reservation::query()->where('confirmed', '=', 0)
-            ->select('id', 'allocation_date', 'scooter_id', 'user_id', 'user_tel', 'cin')
+            ->select('id', 'allocation_date', 'scooter_id', 'user_id', 'user_tel', 'cin', 'cin_back', 'cin_front')
             ->get()
             ->map(function ($item) {
                 return [
@@ -73,9 +73,12 @@ class DashboardController extends Controller
                         ->select('name')
                         ->first(),
                     'user_tel' => $item->user_tel,
-                    "cin" => $item->cin
+                    "cin" => $item->cin,
+                    'cin_back' => $item->cin_back,
+                    'cin_front' => $item->cin_front
                 ];
             });
+
         return view('reservations-queued', compact('reservations'));
     }
 

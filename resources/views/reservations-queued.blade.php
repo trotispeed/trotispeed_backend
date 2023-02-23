@@ -36,10 +36,16 @@
                                             <td>{{$reservation['cin']}}</td>
                                             <td>{{$reservation['user_tel']}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary">Confirm <i
-                                                        data-feather="book-open" style="width: 0.9rem"></i></button>
-                                                <a href="{{route('uploadcin' , $reservation['id'])}}" type="button"
-                                                   class="btn btn-secondary">Upload CIN</a>
+
+                                                @if($reservation['cin_back'])
+                                                    <button type="button" class="btn btn-primary">Confirm <i
+                                                            data-feather="book-open" style="width: 0.9rem"></i></button>
+                                                @else
+
+                                                    <a href="{{route('uploadcin' , $reservation['id'])}}" type="button"
+                                                       class="btn btn-secondary">Upload CIN</a>
+                                                @endif
+
                                                 <button type="button" class="btn btn-warning">Cancel <i
                                                         data-feather="x-circle" style="width: 0.9rem"></i></button>
                                             </td>

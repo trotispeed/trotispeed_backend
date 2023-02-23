@@ -29,4 +29,6 @@ Route::get('/scooters/category/{brand_id}', [\App\Http\Controllers\ScooterContro
 Route::get('/scooter/{id}', [\App\Http\Controllers\ScooterController::class, 'scooter_info']);
 Route::post('/validation', [\App\Http\Controllers\ReservationController::class, 'validate_reservation']);
 Route::post('/search', [\App\Http\Controllers\ScooterController::class, 'search_by_name']);
+Route::get('/counter/{scooter_id}/{user_id}', [\App\Http\Controllers\ReservationController::class, 'counter']);
+
 

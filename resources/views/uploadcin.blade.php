@@ -13,6 +13,9 @@
             @csrf
             <input class="form-control" name="id" type="number" value="{{$id}}" hidden="">
 
+            <label for="">DURATION IN HOURS:</label>
+            <input type="number" name="duration">
+
             <div class="mb-3">
                 <label for="message-text" class="form-label">CIN FRONT:</label>
                 <input class="form-control" name="picture" type="file" required>

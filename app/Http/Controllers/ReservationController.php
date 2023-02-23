@@ -44,6 +44,22 @@ class ReservationController extends Controller
 
     }
 
+    public function counter($scooter_id, $user_id)
+    {
+        $resrvation = Reservation::query()->where('user_id', '=', $user_id)
+            ->select('updated_at', 'duration')
+            ->where('scooter_id', '=', $scooter_id)
+            ->first();
+        if (!isset($resrvation)) {
+            return response()->json(
+                ['msg' => 'no record found'], 404
+            );
+        }
+        $base = Carbon::create($resrvation->updated_at);
+        $now = Carbon::now();
+        return $resrvation;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
