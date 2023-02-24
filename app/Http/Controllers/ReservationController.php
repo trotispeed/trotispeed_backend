@@ -39,7 +39,9 @@ class ReservationController extends Controller
                 "user_id" => $user->id,
                 "user_tel" => $request->number
             ]);
-            return $reservarion;
+            return response()->json(
+                ['message' => 'reservation has been created'] , 201
+            );
         }
 
     }
