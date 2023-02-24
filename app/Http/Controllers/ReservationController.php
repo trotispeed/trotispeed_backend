@@ -55,9 +55,19 @@ class ReservationController extends Controller
                 ['msg' => 'no record found'], 404
             );
         }
-        $base = Carbon::create($resrvation->updated_at);
+        $updated_at_plus_reservation = Carbon::create($resrvation->updated_at)->addHours($resrvation->duration);
         $now = Carbon::now();
-        return $resrvation;
+
+        if ($now->gt($updated_at_plus_reservation)) {
+            return ['message' => 'reservation has been ended', 'counter' => null];
+        }
+
+        return [
+            'resrvation' => $resrvation,
+            'updated_at_plus_reservation' => $updated_at_plus_reservation,
+            'now' => $now,
+            'counter' => $now->diffAsCarbonInterval($updated_at_plus_reservation)
+        ];
     }
 
     /**
