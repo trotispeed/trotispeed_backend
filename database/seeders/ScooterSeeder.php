@@ -24,7 +24,8 @@ class ScooterSeeder extends Seeder
                 'max_speed' => 16,
                 'range' => 67,
                 'base_price' => 120,
-                'pic' => '/images/scooters/a.jpg'
+                'pic' => '/images/scooters/a.jpg',
+                'brand_id' => 1
             ]
         );
     }
