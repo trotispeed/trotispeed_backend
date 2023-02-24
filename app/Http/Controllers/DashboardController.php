@@ -24,7 +24,11 @@ class DashboardController extends Controller
 
     public function reservations()
     {
-        return view('reservations');
+
+        $reservation = Reservation::query()->where('confirmed', '=', 1)
+            ->with('scooter', 'user')
+            ->get();
+        return view('reservations', compact('reservation'));
     }
 
     public function uploadcin($id)
@@ -51,6 +55,7 @@ class DashboardController extends Controller
         $reservation->duration = $request->duration;
         $reservation->cin_front = $cin_f;
         $reservation->cin_back = $cin_b;
+        $reservation->confirmed = 1;
         $reservation->save();
         return redirect(route('queued'));
 

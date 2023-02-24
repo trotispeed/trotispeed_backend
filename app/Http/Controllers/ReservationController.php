@@ -63,11 +63,7 @@ class ReservationController extends Controller
         }
 
         return [
-            'resrvation' => $resrvation,
-            'updated_at_plus_reservation' => $updated_at_plus_reservation,
-            'now' => $now,
-            'counter' => $now->diffAsCarbonInterval($updated_at_plus_reservation)
-        ];
+            'data' => $resrvation];
     }
 
     /**
